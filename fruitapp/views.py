@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 
 def about(request):    
     if "email" in request.session:
+        print("hello python")
         return render(request,"about.html")
     else:
         return render(request,"login.html")
