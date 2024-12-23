@@ -40,13 +40,16 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="{% url 'index' %}">
-						        		<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-						        	</form>
+									<form action="{%url 'checkout' %}"method="post" type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+										{% csrf_token %}
+										<p><input type="text" placeholder="Name" name="name" id="name" required></p>
+										<p><input type="email" readonly placeholder="Email" name="email" id="email" value="{{uid.email}}"></p>
+										<p><input type="tel" placeholder="Phone" name="phone" id="phone" required></p>
+										<p><input type="text" placeholder="address" name="address" id="address" required></p>
+										<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message" required></textarea></p>
+										<input type="hidden" name="token" value="FsWga4&@f6aw" />
+										<p><input type="submit" value="Submit"></p>
+									</form>
 						        </div>
 						      </div>
 						    </div>
@@ -98,35 +101,28 @@
 								</tr>
 							</thead>
 							<tbody class="order-details-body">
+								{% for i in pid %}
+								
 								<tr>
-									<td>Product</td>
-									<td>Total</td>
+									<td>{{i.product_name}}</td>
+									<td>${{i.total}}</td>
 								</tr>
-								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
-								</tr>
+
+								{% endfor %}
 							</tbody>
+
 							<tbody class="checkout-details">
 								<tr>
 									<td>Subtotal</td>
-									<td>$190</td>
+									<td>${{subtotal}}</td>
 								</tr>
 								<tr>
 									<td>Shipping</td>
-									<td>$50</td>
+									<td>${{shipping}}</td>
 								</tr>
 								<tr>
 									<td>Total</td>
-									<td>$240</td>
+									<td>${{total}}</td>
 								</tr>
 							</tbody>
 						</table>

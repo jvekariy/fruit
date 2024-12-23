@@ -3,6 +3,56 @@
 {% load static %}
 
 {% block content %}
+<style>
+	@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+    background-color: #eee;
+    font-family: 'Calibri', sans-serif !important;
+}
+
+.mt-100{
+   margin-top:100px;
+
+}
+
+
+.card {
+    margin-bottom: 30px;
+    border: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    letter-spacing: .5px;
+    border-radius: 8px;
+    -webkit-box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+    box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+}
+
+.card .card-header {
+    background-color: #fff;
+    border-bottom: none;
+    padding: 24px;
+    border-bottom: 1px solid #f6f7fb;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+x
+
+
+.card .card-body {
+    padding: 30px;
+    background-color: transparent;
+}
+
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+    background-color: #bd0202af!important;
+    border-color: #a70000a5!important;
+}
+</style>
 
 	
 	<!-- search area -->
@@ -45,6 +95,36 @@
 	<!-- end breadcrumb section -->
 
 	<!-- cart -->
+	{% if pid.count == 0 %}
+
+	<div class="container-fluid  mt-100">
+		<div class="row">
+		
+		   <div class="col-md-12">
+		   
+				<div class="card">
+					<div class="card-header">
+							<h5>Cart</h5>
+					</div>
+					<div class="card-body cart">
+						<div class="col-sm-12 empty-cart-cls text-center">
+							<img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+							<h3><strong>Your Cart is Empty</strong></h3>
+							<h4>Add something to make me happy :)</h4>
+							<a href="{% url 'shop'%}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+										
+									
+						</div>
+					</div>
+				</div>
+			   
+		   
+			   </div>
+		
+		</div>
+	   
+	</div>
+	{% else %}
 	<div class="cart-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
@@ -59,25 +139,37 @@
 									<th class="product-price">Price</th>
 									<th class="product-quantity">Quantity</th>
 									<th class="product-total">Total</th>
-									<th class="product-remove"></th>
+									<th class="product-remove">Remove</th>
 
 								</tr>
 							</thead>
-							{% for i in pid %}
-							<tbody>
-								<tr class="table-body-row">
-									<td class="product-image"><img src="{{i.image.url}}" alt=""></td>
-									<td class="product-name">{{i.product_name}}</td>
-									<td class="product-price">${{i.price}}</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">${{i.price}}</td>
-									<td class="product-remove"><a href="{% url 'cart_delete' i.id %}"><i class="far fa-window-close"></i></a></td>
-
+							<tbody class="align-middle">
+								{% for i in pid %}
+								<tr>
+									<td class="align-middle"><img src="{{i.image.url}}" alt="" style="width: 50px;"> </td>
+									<td class="align-middle">{{i.product_name}}</td>
+									<td class="align-middle">${{i.price}}</td>
+									<td class="align-middle">
+										<div class="input-group quantity mx-auto"  style="width: 100px;">
+											<div class="input-group-btn">
+												<a href="{% url 'cart_minus' i.id %}" class="btn btn-sm btn-primary btn-minus">
+													<i class="fa fa-minus"></i>
+												</a>
+											</div>
+											<input type="text" class="form-control form-control-sm bg-secondary text-center" value="{{i.quantity}}" readonly>
+											<div class="input-group-btn">
+												<a href="{% url 'cart_plus' i.id %}" class="btn btn-sm btn-primary btn-plus">
+													<i class="fa fa-plus"></i>
+												</a>
+											</div>
+										</div>
+										
+									</td>
+									<td class="align-middle">${{i.total}}</td>
+									<td class="align-middle"><a href="{% url 'cart_delete' i.id %}"><i class="fa fa-times"></i></a></td>
 								</tr>
-								
-								
+								{% endfor %}
 							</tbody>
-							{% endfor %}
 						</table>
 					</div>
 				</div>
@@ -94,15 +186,15 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
+									<td>${{subtotal}}</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
+									<td>${{shipping}}</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td>$545</td>
+									<td>${{total}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -125,6 +217,7 @@
 			</div>
 		</div>
 	</div>
+	{% endif %}
 	<!-- end cart -->
 
 	<!-- logo carousel -->

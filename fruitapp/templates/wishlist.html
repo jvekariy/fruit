@@ -63,7 +63,7 @@
                             {% for i in pid %}
 							<tbody>
 								<tr class="table-body-row">
-									<td class="product-remove"><a href="{% url 'delete' i.id %}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-remove"><a href="{% url 'wishlist_delete' i.id %}"><i class="far fa-window-close"></i></a></td>
 									<td class="product-image"><img src="{{i.image.url}}" alt=""></td>
 									<td class="product-name">{{i.product_name}}</td>
 									<td class="product-price">${{i.price}}</td>

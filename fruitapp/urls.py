@@ -35,10 +35,15 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('profile', views.profile, name='profile'),
     path('search', views.search, name='search'),
+    path('confirm_password', views.confirm_password, name='confirm_password'),
+    path('forgate_password', views.forgate_password, name='forgate_password'),
     path('add_wishlist/<int:id>', views.add_wishlist, name='add_wishlist'),
-    path('delete/<int:id>', views.delete, name='delete'),
+    path('wishlist_delete/<int:id>', views.wishlist_delete, name='wishlist_delete'),
     path('cart_delete/<int:id>', views.cart_delete, name='cart_delete'),
+    path('review', views.review, name='review'),
 
+    path('cart_plus/<int:id>', views.cart_plus, name='cart_plus'),
+    path('cart_minus/<int:id>', views.cart_minus, name='cart_minus'),
 
 
       
