@@ -448,3 +448,7 @@ def review(request):
         return redirect(index)
     return render(request,"rating.html")
 
+
+
+def rating(request):
+        return render(request,"rating.html")
