@@ -193,6 +193,10 @@ x
 									<td>${{shipping}}</td>
 								</tr>
 								<tr class="total-data">
+									<td><strong>Discount: </strong></td>
+									<td>${{discount}}</td>
+								</tr>
+								<tr class="total-data">
 									<td><strong>Total: </strong></td>
 									<td>${{total}}</td>
 								</tr>
@@ -203,12 +207,20 @@ x
 							<a href="{% url 'checkout' %}" class="boxed-btn black">Check Out</a>
 						</div>
 					</div>
-
+					
 					<div class="coupon-section">
+						{% if messages %}
+								<ul class="messages">
+									{% for message in messages %}
+									<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
 						<h3>Apply Coupon</h3>
 						<div class="coupon-form-wrap">
-							<form action="{% url 'index' %}">
-								<p><input type="text" placeholder="Coupon"></p>
+							<form action="{% url 'coupan' %}" method="post">
+								{% csrf_token %}
+								<p><input type="text" name="coupon_code" placeholder="Coupon"></p>
 								<p><input type="submit" value="Apply"></p>
 							</form>
 						</div>

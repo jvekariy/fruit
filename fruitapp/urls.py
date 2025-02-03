@@ -41,10 +41,16 @@ urlpatterns = [
     path('wishlist_delete/<int:id>', views.wishlist_delete, name='wishlist_delete'),
     path('cart_delete/<int:id>', views.cart_delete, name='cart_delete'),
     path('review', views.review, name='review'),
-    path('rating', views.rating, name='rating'),
+    path('coupan', views.coupan, name='coupan'),
+    path('single_order/<str:id>', views.single_order, name='single_order'),
+    path('all_order', views.all_order, name='all_order'),
 
     path('cart_plus/<int:id>', views.cart_plus, name='cart_plus'),
     path('cart_minus/<int:id>', views.cart_minus, name='cart_minus'),
+    path('add_address', views.add_address, name='add_address'),
+    path('edit_address/<int:id>', views.edit_address, name='edit_address'),
+    path('delete_address/<int:id>', views.delete_address, name='delete_address'),
+
 
 
       
